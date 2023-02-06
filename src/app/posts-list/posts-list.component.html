@@ -1,0 +1,51 @@
+<div class="col-12 row mb-3">
+    <div class="col-8">
+        <a [routerLink]="['/post']" class="btn btn-primary btn-sm text-white">Add New <i class="fa-solid fa-plus"></i></a>
+
+    </div>
+    <div class="col-4">
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="searchValue"
+                (input)="search()">
+            <span class="input-group-text" id="addon-wrapping"><i
+                    class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+
+    <div *ngFor="let l of list" class="card border border-2 mb-3 shadow"
+        [ngClass]="{'border-secondary' : l.upvotes === l.downvotes , 'border-success' : l.upvotes > l.downvotes , 'border-danger' : l.upvotes < l.downvotes } ">
+        <div class="card-body">
+            <h5 class="card-title">{{l.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{l.author}}</h6>
+            <p class="card-text">
+                {{l.content}}
+                <span class="col-12 mt-1">
+                    <br>
+                    <a href="#" [routerLink]="['/postDetails', l.id]">continue reading</a>
+                </span>
+
+            </p>
+
+
+
+            <button type="button" (click)="handleVote(l.id , 'upvote')"
+                class="btn btn-outline-primary me-3 position-relative">
+                <i class="fa-regular fa-thumbs-up"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                    {{l.upvotes}}
+                </span>
+            </button>
+
+            <button type="button" (click)="handleVote(l.id , 'downvote')"
+                class="btn btn-outline-primary position-relative">
+                <i class="fa-regular fa-thumbs-down"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                    {{l.downvotes}}
+                </span>
+            </button>
+
+        </div>
+    </div>
+</div>
